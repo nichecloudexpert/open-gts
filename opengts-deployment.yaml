@@ -1,0 +1,42 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.16.0 (0c01309)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: opengts
+  name: opengts
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: opengts
+    spec:
+      containers:
+      - env:
+        - name: CREATE_DATABASE
+          value: "true"
+        - name: MYSQL_DBNAME
+          value: gts
+        - name: MYSQL_DBPASS
+          value: opengts
+        - name: MYSQL_DBUSER
+          value: gts
+        - name: MYSQL_ROOT_PASSWORD
+          value: mysqlroot
+        - name: MYSQL_SERVICE_HOST
+          value: mysql
+        - name: SYSADMIN_PASSWORD
+          value: sysadmin
+        image: halilintar8/opengts
+        name: opengts
+        ports:
+        - containerPort: 8080
+        resources: {}
+      restartPolicy: Always
+status: {}

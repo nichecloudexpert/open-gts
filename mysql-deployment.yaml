@@ -1,0 +1,38 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.16.0 (0c01309)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: mysql
+  name: mysql
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: mysql
+    spec:
+      containers:
+      - env:
+        - name: CREATE_DATABASE
+          value: "true"
+        - name: MYSQL_DBNAME
+          value: gts
+        - name: MYSQL_DBPASS
+          value: opengts
+        - name: MYSQL_DBUSER
+          value: gts
+        - name: MYSQL_ROOT_PASSWORD
+          value: mysqlroot
+        image: mariadb
+        name: mysql
+        ports:
+        - containerPort: 3306
+        resources: {}
+      restartPolicy: Always
+status: {}
